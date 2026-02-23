@@ -13,15 +13,15 @@ internal class AddAuthorToBookDomainService
         _authorRepository = authorRepository;
     }
 
-    public async Task AddAuthorToBook(Guid bookId, Guid authorId)
+    public async Task AddAuthorToBook(Guid bookId, Guid authorId, CancellationToken cancellationToken = default)
     {
-        var book = await _bookRepository.GetAsync(bookId);
+        var book = await _bookRepository.GetAsync(bookId, cancellationToken);
         if(book  == null)
         {
             throw new Exception("No book with this Id");
         }
 
-        var author = await _authorRepository.GetAsync(authorId);
+        var author = await _authorRepository.GetAsync(authorId, cancellationToken);
 
         if(author == null)
         {

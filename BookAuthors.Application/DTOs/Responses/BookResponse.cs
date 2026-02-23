@@ -10,5 +10,5 @@ public class BookResponseWithAuthors
 {
     public string Title { get; init; } = null!;
     public string Description { get; init; } = string.Empty;
-    public List<AuthorResponse> Authors { get; set; } = [];
+    public List<AuthorInBookResponse> Authors { get; set; } = [];
 }

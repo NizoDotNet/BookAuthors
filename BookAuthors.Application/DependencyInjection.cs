@@ -1,4 +1,4 @@
-﻿using BookAuthors.Application.Author;
+﻿using BookAuthors.Application.Service;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 

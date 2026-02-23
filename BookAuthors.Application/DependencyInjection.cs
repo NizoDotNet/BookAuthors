@@ -12,6 +12,8 @@ public static class DependencyInjection
         {
             services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
             services.AddScoped<AuthorService>();
+            services.AddScoped<BookService>();
+
             return services;
         }
     }

@@ -7,5 +7,6 @@ namespace BookAuthors.Application.DTOs.Requests;
 public class CreateBookRequest
 {
     public string Title { get; init; } = null!;
+    public string Description { get; init; } = string.Empty;
     public List<Guid> AuthorsIds { get; init; } = [];
 }

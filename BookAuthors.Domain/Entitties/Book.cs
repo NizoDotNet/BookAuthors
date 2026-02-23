@@ -12,6 +12,7 @@ public class Book : Entity
     }
 
     public string Title { get; init; } = null!;
+    public string Description { get; init; } = string.Empty;
     public List<Author> Authors { get; init; } = [];
 
 

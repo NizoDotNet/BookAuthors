@@ -1,6 +1,7 @@
 using BookAuthors.Application;
 using BookAuthors.Application.DTOs.Requests;
 using BookAuthors.Application.Service;
+using BookAuthors.Endpoints;
 using BookAuthors.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,17 +18,17 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapGroup("/authors")
+    .MapAuthorsEndpoints()
+    .WithTags("Authors")
+    .WithName("Authors");
+
+app.MapGroup("/books")
+    .MapBooksEndpoints()
+    .WithTags("Books")
+    .WithName("Books");
 
 
-app.MapPost("/books", async (CreateBookRequest createBookRequest, AuthorService service, CancellationToken cancellationToken) =>
-{
-    var res = await service.AddBookAsync(createBookRequest);
-    if (res.Succeeded)
-    {
-        return Results.Created();
-    }
-    return Results.BadRequest();
-});
 app.Run();
 
 

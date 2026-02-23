@@ -44,7 +44,8 @@ public static class BooksEndpointsExtension
                 }
 
                 return Results.Ok();
-            });
+            })
+                .WithDescription("Add author to existing book");
             return route;
         }
     }

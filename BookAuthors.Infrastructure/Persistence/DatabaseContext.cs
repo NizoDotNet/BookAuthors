@@ -5,7 +5,7 @@ namespace BookAuthors.Infrastructure.Persistence;
 
 public class DatabaseContext : DbContext
 {
-    protected DatabaseContext(DbContextOptions op)
+    public DatabaseContext(DbContextOptions op)
         : base(op)
     {
     }
@@ -15,8 +15,7 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DatabaseContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
     }
 }

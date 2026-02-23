@@ -47,7 +47,9 @@ public class AuthorService
         var validation = _authorValidator.Validate(createAuthor);
         if (!validation.IsValid)
         {
-            return Result<int>.Failed(400, -1);
+            var result = Result<int>.Failed(400, -1);
+            result.Messages = validation.ToDictionary();
+            return result;
         }
         await _authorRepository.InsertAsync(new Domain.Entities.Author()
         {
@@ -112,11 +114,12 @@ public class AuthorService
     {
         return new AuthorResponse()
         {
+            Id = author.Id,
             Bio = author.Bio,
             Name = author.Name,
             Surname = author.Surname,
             Middlename = author.Middlename,
-            BookResponses = author.Books.Select(b => new BookResponse()
+            Books = author.Books.Select(b => new BookResponse()
             {
                 Description = b.Description,
                 Title = b.Title

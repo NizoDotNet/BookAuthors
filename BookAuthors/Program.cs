@@ -26,7 +26,7 @@ app.MapGet("/authors", async (int page, int pageSize, [FromServices] AuthorServi
 
 });
 
-app.MapGet("/authors/{authorId}", async (Guid authorId, [FromServices] AuthorService service, CancellationToken cancellationToken) =>
+app.MapGet("/authors/{authorId}", async (Guid authorId, AuthorService service, CancellationToken cancellationToken) =>
 {
     var author = await service.GetAsync(authorId, cancellationToken);
     if(author == null)
@@ -36,14 +36,14 @@ app.MapGet("/authors/{authorId}", async (Guid authorId, [FromServices] AuthorSer
     return Results.Ok(author);
 });
 
-app.MapPost("/authors", async ([FromBody] CreateAuthorRequest request, AuthorService service, CancellationToken cancellationToken) =>
+app.MapPost("/authors", async (CreateAuthorRequest request, AuthorService service, CancellationToken cancellationToken) =>
 {
     var res = await service.CreateAsync(request);
     if(res.Succeeded)
     {
         return Results.Created();
     }
-    return Results.BadRequest();
+    return Results.BadRequest(res.Messages);
 });
 
 app.MapPost("/books", async (CreateBookRequest createBookRequest, AuthorService service, CancellationToken cancellationToken) =>

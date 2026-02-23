@@ -16,7 +16,6 @@ public class CreateAuthorValidator : AbstractValidator<CreateAuthorRequest>
             .MaximumLength(20);
 
         RuleFor(c => c.Middlename)
-            .NotEmpty()
             .MaximumLength(30);
 
        

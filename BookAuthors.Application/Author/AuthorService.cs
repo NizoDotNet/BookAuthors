@@ -5,19 +5,23 @@ using BookAuthors.Application.Interfaces;
 using BookAuthors.Domain.Entities;
 using BookAuthors.Domain.Repositories;
 using FluentValidation;
-using System.ComponentModel.DataAnnotations;
 
 namespace BookAuthors.Application.Author;
 
 public class AuthorService
 {
     private readonly IAuthorRepository _authorRepository;
+    private readonly IBookRespository _bookRespository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IValidator<CreateAuthorRequest> _validator;
-    public AuthorService(IAuthorRepository authorRepository, IValidator<CreateAuthorRequest> validator)
+    private readonly IValidator<CreateAuthorRequest> _authorValidator;
+    private readonly IValidator<CreateBookRequest> _bookValidator;
+    public AuthorService(IAuthorRepository authorRepository, IValidator<CreateAuthorRequest> validator, IUnitOfWork unitOfWork, IBookRespository bookRespository, IValidator<CreateBookRequest> bookValidator)
     {
         _authorRepository = authorRepository;
-        _validator = validator;
+        _authorValidator = validator;
+        _unitOfWork = unitOfWork;
+        _bookRespository = bookRespository;
+        _bookValidator = bookValidator;
     }
 
     public async Task<List<AuthorResponse>> GetAllWithPagination(int page, int pageSize, CancellationToken cancellationToken = default)
@@ -26,22 +30,22 @@ public class AuthorService
         return authors.Select(c => MapToAuthorResponse(c)).ToList();
     }
 
-    
+
 
     public async Task<AuthorResponse?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var author = await _authorRepository.GetAsync(id, cancellationToken);
-        if(author == null)
+        if (author == null)
         {
             return null;
         }
         return MapToAuthorResponse(author);
     }
-    
+
     public async Task<Result<int>> CreateAsync(CreateAuthorRequest createAuthor, CancellationToken cancellationToken = default)
     {
-        var validation = _validator.Validate(createAuthor);
-        if(!validation.IsValid)
+        var validation = _authorValidator.Validate(createAuthor);
+        if (!validation.IsValid)
         {
             return Result<int>.Failed(400, -1);
         }
@@ -55,6 +59,54 @@ public class AuthorService
         int res = await _unitOfWork.SaveAsync(cancellationToken);
         return Result<int>.Succeed(200, res);
 
+    }
+
+    public async Task<Result<int>> AddBookAsync(Guid authorId, Guid bookId)
+    {
+        var author = await _authorRepository.GetAsync(authorId);
+        if (author == null)
+        {
+            return Result<int>.Failed(404, -1);
+        }
+
+        var book = await _bookRespository.GetAsync(bookId);
+
+        if (book == null)
+        {
+            return Result<int>.Failed(404, -1);
+        }
+
+        author.AddBook(book);
+
+        int res = await _unitOfWork.SaveAsync();
+
+        return Result<int>.Succeed(200, res);
+    }
+
+    public async Task<Result<int>> AddBookAsync(CreateBookRequest createBook)
+    {
+        var validation = _bookValidator.Validate(createBook);
+        if (!validation.IsValid)
+        {
+            return Result<int>.Failed(400, -1);
+        }
+        var author = await _authorRepository.GetAsync(createBook.AuthorId);
+        if (author == null)
+        {
+            return Result<int>.Failed(404, -1);
+        }
+
+        var book = new Book()
+        {
+            Description = createBook.Description,
+            Title = createBook.Title,
+        };
+
+        author.AddBook(book);
+
+        int res = await _unitOfWork.SaveAsync();
+
+        return Result<int>.Succeed(200, res);
     }
     private static AuthorResponse MapToAuthorResponse(Domain.Entities.Author author)
     {

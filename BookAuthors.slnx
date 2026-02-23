@@ -3,4 +3,7 @@
   <Project Path="BookAuthors.Domain/BookAuthors.Domain.csproj" />
   <Project Path="BookAuthors.Infrastructure/BookAuthors.Infrastructure.csproj" />
   <Project Path="BookAuthors/BookAuthors.csproj" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>

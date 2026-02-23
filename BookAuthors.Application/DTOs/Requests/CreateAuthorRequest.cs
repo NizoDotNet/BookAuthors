@@ -1,4 +1,4 @@
-﻿namespace BookAuthors.Application.Author.DTOs.Requests;
+﻿namespace BookAuthors.Application.DTOs.Requests;
 
 public class CreateAuthorRequest
 {

@@ -11,7 +11,7 @@ public class AuthorConfiguration : IEntityTypeConfiguration<Author>
         builder.Property(c => c.Name)
             .HasMaxLength(20);
 
-        builder.Property(c => c.Surame)
+        builder.Property(c => c.Surname)
             .HasMaxLength(20);
 
         builder.Property(c => c.Middlename)

@@ -6,7 +6,7 @@ public class Author : Entity
 {
     private readonly List<Book> _books = new();
     public string Name { get; private set; } = null!;
-    public string Surame { get; private set; } = null!;
+    public string Surname { get; private set; } = null!;
     public string Middlename { get; private set; } = string.Empty;
     public string Bio { get; private set; } = string.Empty!;
 

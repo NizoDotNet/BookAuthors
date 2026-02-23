@@ -27,6 +27,7 @@ internal class AuthorRepository : IAuthorRepository
             .Include(c => c.Books)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
     }
 

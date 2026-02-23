@@ -30,6 +30,22 @@ internal class BookRepository : IBookRespository
            .ToListAsync();
     }
 
+    public async Task<List<Book>> GetWithPaginationAsync(int page, int pageSize, Guid? authorId = null, CancellationToken cancellationToken = default)
+    {
+        var query = _db.Books
+           .Include(c => c.Authors)
+           .Skip((page - 1) * pageSize)
+           .Take(pageSize)
+           .AsNoTracking();
+
+        if (authorId is not null)
+        {
+            query = query.Where(c => c.Authors.Any(c => c.Id == authorId));
+        }
+
+        return await query.ToListAsync(cancellationToken);
+    }
+
     public async Task<Book> InsertAsync(Book entity, CancellationToken cancellationToken = default)
     {
         await _db.Books.AddAsync(entity);

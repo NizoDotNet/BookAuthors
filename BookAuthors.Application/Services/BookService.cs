@@ -13,15 +13,15 @@ public class BookService
     }
 
 
-    public async Task<List<BookResponseWithAuthors>> GetAllWithPaginationAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    public async Task<List<BookResponseWithAuthors>> GetAllWithPaginationAsync(int page, int pageSize, Guid? authorId = null, CancellationToken cancellationToken = default)
     {
-        var books = await _bookRepository.GetWithPaginationAsync(page, pageSize, cancellationToken);
+        var books = await _bookRepository.GetWithPaginationAsync(page, pageSize, authorId, cancellationToken);
         return books.Select(MapToBookResponse)
             .ToList();
     }
 
 
-    public async Task<BookResponseWithAuthors?> GetAsync(Guid id, Guid? authorId = null, CancellationToken cancellationToken = default)
+    public async Task<BookResponseWithAuthors?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var book = await _bookRepository.GetAsync(id, cancellationToken); 
         if(book is null)

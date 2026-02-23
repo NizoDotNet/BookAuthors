@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BookAuthors.Application/BookAuthors.Application.csproj" />
+  <Project Path="BookAuthors.Domain/BookAuthors.Domain.csproj" />
+  <Project Path="BookAuthors.Infrastructure/BookAuthors.Infrastructure.csproj" />
+  <Project Path="BookAuthors/BookAuthors.csproj" />
+</Solution>

@@ -11,8 +11,8 @@ public class Book : Entity
         
     }
 
-    public string Title { get; private set; } = null!;
-    public List<Author> Authors { get; private set; } = [];
+    public string Title { get; init; } = null!;
+    public List<Author> Authors { get; init; } = [];
 
 
 }

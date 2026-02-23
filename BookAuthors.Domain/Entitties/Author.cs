@@ -5,10 +5,10 @@ namespace BookAuthors.Domain.Entities;
 public class Author : Entity
 {
     private readonly List<Book> _books = new();
-    public string Name { get; private set; } = null!;
-    public string Surname { get; private set; } = null!;
-    public string Middlename { get; private set; } = string.Empty;
-    public string Bio { get; private set; } = string.Empty!;
+    public string Name { get; init; } = null!;
+    public string Surname { get; init; } = null!;
+    public string Middlename { get; init; } = string.Empty;
+    public string Bio { get; init; } = string.Empty!;
 
     public IReadOnlyList<Book> Books => _books.AsReadOnly();
 

@@ -16,7 +16,7 @@ public static class BooksEndpointsExtension
 
             route.MapGet("/{bookId}", async (Guid bookId, BookService service, CancellationToken cancellationToken) =>
             {
-                var book = await service.GetAsync(bookId);
+                var book = await service.GetAsync(bookId, cancellationToken);
                 if(book is null)
                 {
                     return Results.NotFound();
@@ -24,9 +24,9 @@ public static class BooksEndpointsExtension
                 return Results.Ok(book);
             });
 
-            route.MapPost("/books", async (CreateBookRequest createBookRequest, AuthorService service, CancellationToken cancellationToken) =>
+            route.MapPost("/", async (CreateBookRequest createBookRequest, AuthorService service, CancellationToken cancellationToken) =>
             {
-                var res = await service.AddBookAsync(createBookRequest);
+                var res = await service.AddBookAsync(createBookRequest, cancellationToken);
                 if (res.Succeeded)
                 {
                     return Results.Created();
@@ -34,7 +34,7 @@ public static class BooksEndpointsExtension
                 return Results.BadRequest();
             });
 
-            route.MapPatch("/books", async (AddAuthorToBookRequest request, AuthorService service) =>
+            route.MapPatch("/", async (AddAuthorToBookRequest request, AuthorService service) =>
             {
                 var res = await service.AddBookAsync(request.AuthorId, request.BookId);
 

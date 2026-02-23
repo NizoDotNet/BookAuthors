@@ -20,13 +20,11 @@ app.UseHttpsRedirection();
 
 app.MapGroup("/authors")
     .MapAuthorsEndpoints()
-    .WithTags("Authors")
-    .WithName("Authors");
+    .WithTags("Authors");
 
 app.MapGroup("/books")
     .MapBooksEndpoints()
-    .WithTags("Books")
-    .WithName("Books");
+    .WithTags("Books");
 
 
 app.Run();

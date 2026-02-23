@@ -63,7 +63,7 @@ public class AuthorService
 
     }
 
-    public async Task<Result<int>> AddBookAsync(Guid authorId, Guid bookId)
+    public async Task<Result<int>> AddBookAsync(Guid authorId, Guid bookId, CancellationToken cancellationToken = default)
     {
         var author = await _authorRepository.GetAsync(authorId);
         if (author == null)
@@ -85,7 +85,7 @@ public class AuthorService
         return Result<int>.Succeed(200, res);
     }
 
-    public async Task<Result<int>> AddBookAsync(CreateBookRequest createBook)
+    public async Task<Result<int>> AddBookAsync(CreateBookRequest createBook, CancellationToken cancellationToken = default)
     {
         var validation = _bookValidator.Validate(createBook);
         if (!validation.IsValid)
@@ -122,6 +122,7 @@ public class AuthorService
             Middlename = author.Middlename,
             Books = author.Books.Select(b => new BookResponse()
             {
+                Id = b.Id,
                 Description = b.Description,
                 Title = b.Title
             }).ToList()

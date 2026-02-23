@@ -36,6 +36,7 @@ public class BookService
     {
         return new BookResponseWithAuthors
         {
+            Id = c.Id,
             Title = c.Title,
             Description = c.Description,
             Authors = c.Authors.Select(a => new AuthorInBookResponse()

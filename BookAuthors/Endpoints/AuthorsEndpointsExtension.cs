@@ -28,7 +28,7 @@ public static class AuthorsEndpointsExtension
 
             route.MapPost("/", async (CreateAuthorRequest request, AuthorService service, CancellationToken cancellationToken) =>
             {
-                var res = await service.CreateAsync(request);
+                var res = await service.CreateAsync(request, cancellationToken);
                 if (res.Succeeded)
                 {
                     return Results.Created();

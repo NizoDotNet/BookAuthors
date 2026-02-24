@@ -1,6 +1,4 @@
-﻿using BookAuthors.Domain.Entities;
-
-namespace BookAuthors.Domain.Repositories;
+﻿namespace BookAuthors.Domain.Repositories;
 
 public interface IRepository<T>
 {

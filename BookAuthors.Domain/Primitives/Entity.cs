@@ -16,6 +16,6 @@ public abstract class Entity : IEquatable<Entity>
 
     public override int GetHashCode()
     {
-        return Id.GetHashCode(); 
+        return Id.GetHashCode();
     }
 }

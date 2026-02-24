@@ -8,7 +8,7 @@ public class Book : Entity
     // For EF CORE
     public Book()
     {
-        
+
     }
 
     public string Title { get; init; } = null!;

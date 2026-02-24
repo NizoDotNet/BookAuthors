@@ -23,8 +23,8 @@ public class BookService
 
     public async Task<BookResponseWithAuthors?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var book = await _bookRepository.GetAsync(id, cancellationToken); 
-        if(book is null)
+        var book = await _bookRepository.GetAsync(id, cancellationToken);
+        if (book is null)
         {
             return null;
         }

@@ -14,7 +14,7 @@ public class Author : Entity
 
     public void AddBook(Book book)
     {
-        _books.Add(book); 
+        _books.Add(book);
     }
 
 }

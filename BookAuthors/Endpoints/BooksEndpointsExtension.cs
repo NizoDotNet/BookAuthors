@@ -17,7 +17,7 @@ public static class BooksEndpointsExtension
             route.MapGet("/{bookId}", async (Guid bookId, BookService service, CancellationToken cancellationToken) =>
             {
                 var book = await service.GetAsync(bookId, cancellationToken);
-                if(book is null)
+                if (book is null)
                 {
                     return Results.NotFound();
                 }
@@ -38,7 +38,7 @@ public static class BooksEndpointsExtension
             {
                 var res = await service.AddBookAsync(request.AuthorId, request.BookId);
 
-                if(!res.Succeeded)
+                if (!res.Succeeded)
                 {
                     return Results.BadRequest();
                 }

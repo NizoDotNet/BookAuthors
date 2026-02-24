@@ -10,7 +10,7 @@ public struct Result<T>
     }
 
     public int StatusCode { get; private set; }
-    public IDictionary<string, string[]> Messages { get; set; } 
+    public IDictionary<string, string[]> Messages { get; set; }
     public T Response { get; private set; }
     public bool Succeeded { get; }
 

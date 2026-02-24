@@ -1,6 +1,4 @@
 using BookAuthors.Application;
-using BookAuthors.Application.DTOs.Requests;
-using BookAuthors.Application.Service;
 using BookAuthors.Endpoints;
 using BookAuthors.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
